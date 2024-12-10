@@ -14,6 +14,7 @@ import Account from '@/views/account'
 import Order from '@/views/account/order'
 import Address from '@/views/account/address'
 import LoginForm from '@/views/loginForm'
+import register from '@/views/register'
 
 export default new Router({
   mode: 'history',
@@ -59,6 +60,11 @@ export default new Router({
       path: '/loginForm',
       name: 'loginForm',
       component: LoginForm
+    },   
+    {
+      path: '/register',
+      name: 'register',
+      component: register
     },
     {
       path: '/account',

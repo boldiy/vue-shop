@@ -9,15 +9,11 @@ import 'element-ui/lib/theme-chalk/index.css'
 
 import store from './store'
 
-//设置Axios的基础url
-axios.defaults.baseURL = "http://localhost:33889/";
-axios.defaults.headers.common['Content-Type'] = 'application/json';
-Vue.prototype.$axios=axios;
-
-Vue.use(ElementUI);
-
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
 console.log(store)
 
+Vue.use(ElementUI);
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
