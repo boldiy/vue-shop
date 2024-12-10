@@ -1,6 +1,6 @@
 <template>
   <div class="login-container">
-    <div style="height: 50px;text-align: center;">登录</div>
+    <div style="height: 50px;text-align: center;">注册</div>
     <el-form
       :model="loginForm"
       :rules="rules"
@@ -18,8 +18,7 @@
         ></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="handleLogin">登录</el-button>
-        <el-button @click="register">注册</el-button>
+        <el-button type="primary" @click="handleLogin">提交注册</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -60,14 +59,9 @@ export default {
               password: encryptedPassword
             };
 
-            localStorage.setItem('userinfo', JSON.stringify(this.loginForm));
-
-            console.log(localStorage.getItem('userinfo'))
-
-
-            const response = await axios.post('/api/login', requestData);
+            const response = await axios.post('/api/register', requestData);
             if (response.data.success) {
-              console.log('登录成功');
+              console.log('注册成功');
               // 这里可以进行登录成功后的页面跳转等操作，比如使用router.push('/home')，前提是配置了路由
 
               localStorage.setItem('userinfo', this.loginForm);
@@ -85,7 +79,7 @@ export default {
         }
       });
     },
-    register() {
+    resetForm() {
       this.$router.push('register')
     }
   }
