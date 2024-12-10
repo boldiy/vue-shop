@@ -18,7 +18,7 @@
 								<ul>
 									<li class="order"><router-link to="/account" exact>我的订单</router-link></li>
 									<li class="address"><router-link to="/address">收货地址</router-link></li>
-									<li class="logout"><a href="javascript:;">退出</a></li>
+									<li class="logout"><a href="/loginForm">退出</a></li>
 								</ul>
 							</div>
 						</div>
@@ -27,8 +27,9 @@
 					<!-- <car-panel class="nav-cart"></car-panel> -->
 				</ul>
 				<ul class="nav-list">
-					<router-link to="/phone" exact tag="li" activeClass="active"><a>首页</a></router-link>
-					<li><a href="javascript:;">服饰</a></li>
+					<router-link to="/phone?" exact tag="li" activeClass="active"><a>首页</a></router-link>
+					<router-link to="/phone?a=1" exact tag="li" activeClass="active"><a>首页2</a></router-link>
+					<router-link to="/phone?a=5" exact tag="li" activeClass="active"><a>服饰</a></router-link>
 					<li><a href="javascript:;">鞋类</a></li>
 					<li><a href="javascript:;">箱包</a></li>
 					<li><a href="javascript:;">化妆品</a></li>

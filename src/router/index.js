@@ -13,6 +13,7 @@ import Payment from '@/views/payment'
 import Account from '@/views/account'
 import Order from '@/views/account/order'
 import Address from '@/views/account/address'
+import LoginForm from '@/views/loginForm'
 
 export default new Router({
   mode: 'history',
@@ -53,6 +54,11 @@ export default new Router({
       path: '/payment',
       name: 'Payment',
       component: Payment
+    },
+    {
+      path: '/loginForm',
+      name: 'loginForm',
+      component: LoginForm
     },
     {
       path: '/account',
