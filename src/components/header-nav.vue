@@ -13,7 +13,7 @@
 							<div class="nav-user-list">
 								<dl class="nav-user-avatar">
 									<dd><span class="ng-scope"></span></dd>
-									<dt class="ng-binding">+86 138****9453</dt>
+									<dt class="ng-binding">{{ usercode }}</dt>
 								</dl>
 								<ul>
 									<li class="order"><router-link to="/account" exact>我的订单</router-link></li>
@@ -27,15 +27,24 @@
 					<!-- <car-panel class="nav-cart"></car-panel> -->
 				</ul>
 				<ul class="nav-list">
-					<router-link to="/phone?" exact tag="li" activeClass="active"><a>首页</a></router-link>
-					<router-link to="/phone?a=1" exact tag="li" activeClass="active"><a>首页2</a></router-link>
-					<router-link to="/phone?a=5" exact tag="li" activeClass="active"><a>服饰</a></router-link>
-					<li><a href="javascript:;">鞋类</a></li>
-					<li><a href="javascript:;">箱包</a></li>
-					<li><a href="javascript:;">化妆品</a></li>
+					<router-link to="/phone?a=" exact tag="li" activeClass="active"><a>首页</a></router-link>
+					<router-link to="/phone?a=SJ" exact tag="li"><a>手机</a></router-link>
+					<router-link to="/phone?a=DN" exact tag="li"><a>电脑</a></router-link>
+					<router-link to="/phone?a=FZ" exact tag="li"><a>服装</a></router-link>
+					<router-link to="/phone?a=XZ" exact tag="li"><a>鞋子</a></router-link> 
+					<router-link to="/phone?a=SP" exact tag="li"><a>食品</a></router-link> 
 				</ul>
 			</div>
 		</div>
 		<div class="nav-sub" style="height:20px;"></div>
 	</div>
 </template>
+<script>
+export default {
+  data() {
+	return{
+		usercode:localStorage.getItem('usercode')
+	}
+  }
+}
+</script>

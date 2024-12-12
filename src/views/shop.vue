@@ -1,14 +1,6 @@
 <template>
   <div id="main">
-    <div class="sku-box store-content">
-      <div class="sort-option">
-        <ul class="line clear">
-          <li><a href="javascript:;" class="active">综合排序</a></li>
-          <li><a href="javascript:;" class="">销量排序</a></li>
-          <li><a href="javascript:;" class="">价格低到高</a></li>
-          <li><a href="javascript:;" class="">价格高到低</a></li>
-        </ul>
-      </div>
+    <div class="sku-box store-content"> 
       <div class="gray-box">
         <div class="item-box">
           <shop-item
@@ -18,8 +10,7 @@
           ></shop-item>
         </div>
       </div>
-    </div>
-    aaaa{{ shopType }}
+    </div>   
   </div>
 </template>
 
@@ -38,8 +29,7 @@ export default {
   watch: {
     "$route": 'reseat'
   },
-  mounted() {
-    //this.reseat()
+  mounted() { 
     this.getDataList();
 
     const param1=this.$route.query.a
@@ -68,27 +58,33 @@ export default {
 
     //获取商品列表
     getDataList() {
-      console.log("dddd",this.shopType);
-      axios.post("http://baidu.com", { productID: 12, qty: 1 }, response => {
-        console.log('response', response);
-        this.goodsShow = response;
+      //console.log("dddd",this.shopType);
+      const params ={
+        entityQuery:{
+        PageSize:20,
+        StartIndex:0,
+        TypeCode:this.shopType,
+      }};
+
+      axios.get("/api/GoodsInfo/CustomQueryEntityList", {params}).then(response => {
+        console.log('responseabc', response);
+        //this.goodsShow = response;
+        if (response && response.data && response.data.Data && response.data.Data.Page) {
+          //total.value = response.data.Data.TotalCount;
+          const lists = response.data.Data.Page;
+          this.goodsShow = lists;          
+          //console.log("dddd2",lists);
+          //console.log('response', this.goodsShow);
+        } else {
+          this.goodsShow = [];
+        }
       });
     }
-
-
-    //   axios.get("http://localhost:8001/upload/list", { searchObject: { type: 'phone', sort: 'price' } }, response => {
-    //     console.log('response', response);
-
-    //     //this.goodsShow = response;
-    //   })
-    // }
-
   },
   watch:{
     shopType(newVal,oldVal)
     {
       this.getDataList()
-      //console.log("ccc")
     }
   }
 }

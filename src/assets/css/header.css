@@ -17,7 +17,7 @@
 	display: inline-block;
 	width: 50px;
 	height: 50px;
-	background: url(../img/global-logo.png) no-repeat;
+	background: url('') no-repeat;
     background-size: cover;
 }
 /*导航*/

@@ -7,15 +7,17 @@
       ref="loginFormRef"
       label-width="80px"
     >
-      <el-form-item label="账号" prop="username">
-        <el-input v-model="loginForm.username" placeholder="请输入账号"></el-input>
+      <el-form-item label="账号" prop="UserCode">
+        <el-input v-model="loginForm.UserCode" placeholder="请输入账号"></el-input>
       </el-form-item>
-      <el-form-item label="密码" prop="password">
-        <el-input
-          v-model="loginForm.password"
-          placeholder="请输入密码"
-          type="password"
-        ></el-input>
+      <el-form-item label="密码" prop="Password">
+        <el-input v-model="loginForm.Password" placeholder="请输入密码" type="password" ></el-input>
+      </el-form-item>
+      <el-form-item label="手机号码" prop="Mobile">
+        <el-input v-model="loginForm.Mobile" placeholder="请输入手机号码" type="mobile" max="11"></el-input>
+      </el-form-item>
+      <el-form-item label="昵称" prop="UserName">
+        <el-input v-model="loginForm.UserName" placeholder="请输入昵称"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="handleLogin">提交注册</el-button>
@@ -32,16 +34,21 @@ export default {
   data() {
     return {
       loginForm: {
-        username: "",
-        password: ""
+        UserCode: "",
+        Password: "",
+        Mobile: "",
+        UserName: "",
       },
       rules: {
-        username: [
+        UserCode: [
           { required: true, message: "请输入账号", trigger: "blur" }
         ],
-        password: [
+        Password: [
           { required: true, message: "请输入密码", trigger: "blur" },
           { min: 6, message: "密码长度至少为6位", trigger: "blur" }
+        ],
+        Mobile: [
+          { max: 11, message: "11位手机号码", trigger: "blur" }
         ]
       }
     };
@@ -51,24 +58,31 @@ export default {
       this.$refs.loginFormRef.validate(async (valid) => {
         if (valid) {
           // 对密码进行MD5加密
-          const encryptedPassword = md5(this.loginForm.password);
+          const encryptedPassword = md5(this.loginForm.UserCode);
           try {
             // 将加密后的密码放入请求数据中
             const requestData = {
              ...this.loginForm,
-              password: encryptedPassword
+             Password: encryptedPassword
             };
 
-            const response = await axios.post('/api/register', requestData);
-            if (response.data.success) {
-              console.log('注册成功');
-              // 这里可以进行登录成功后的页面跳转等操作，比如使用router.push('/home')，前提是配置了路由
-
-              localStorage.setItem('userinfo', this.loginForm);
-
-             console.log(localStorage.getItem('userinfo'))
+            const dataParams = {
+              Data: {
+                EntityData: {
+                  UserCode:this.loginForm.UserCode,
+                  Password:encryptedPassword, 
+                  Mobile:this.loginForm.Mobile,
+                  UserName:this.loginForm.UserName,
+                  isValid:1,
+                },
+              },
+            };
+            const response = await axios.post('/api/UserInfo/CreateEntity', dataParams);
+            console.log('注册成功',response);
+            if (response.data && response.data.Sign) {
+              this.$router.push('loginForm'); 
             } else {
-              console.log('登录失败：', response.data.message);
+              //console.log('注册失败：', response.data.message);
             }
           } catch (error) {
             console.log('请求出错：', error);

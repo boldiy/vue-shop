@@ -1,29 +1,20 @@
 <template>
   <div class="item">
     <div>
-      <div class="item-img"><img :alt="item.name" :src="item.sku_info[itemIndex].ali_image" style="opacity: 1;">
+      <div class="item-img"><img :alt="item.GoodsName" :src="item.Images[0].ImageUrl" style="opacity: 1;">
       </div>
-      <h6>{{ item.name }}</h6>
-      <h3>{{ item.name_title }}</h3>
-      <div class="params-colors">
-        <ul class="colors-list">
-          <li v-for="sku, index in item.sku_info" :key="index">
-            <a href="javascript:;" @click="tableData(index)" :data-index="index" :title="sku.spec_json.show_name"
-              :class="{ 'active': index == itemIndex }"></a>
-          </li>
-        </ul>
+      <h6>{{ item.GoodsName }}</h6>
+      <h3>{{ item.GoodsDescription }}</h3>
+      <div class="params-colors"> 
       </div>
-      <div class="item-btns clearfix">
-        <span class="item-gray-btn"><router-link
-            :to="{ name: 'Item', query: { itemId: item.sku_info[itemIndex].sku_id } }">查看详情</router-link> </span>
-        <!-- <span @click="addCarPanelHandle(item.sku_info[itemIndex])" class="item-blue-btn">加入购物车 </span> -->
+      <div class="item-btns clearfix"> 
+        <span @click="addCarPanelHandle(item.Id)" class="item-blue-btn">加入购物车 </span>
       </div>
       <div class="item-price clearfix">
-        <i>¥</i><span>{{ item.price }}</span>
+        <i>¥</i><span>{{ item.UnitPrice }}</span>
       </div>
       <div class="discount-icon">false</div>
-      <div class="item-cover">
-        <router-link :to="{ name: 'Item', query: { itemId: item.sku_info[itemIndex].sku_id } }"></router-link>
+      <div class="item-cover"> 
       </div>
     </div>
   </div>
@@ -47,10 +38,33 @@ export default {
     }
   },
   methods: {
-    addCarPanelHandle(item) {
+    async addCarPanelHandle (item) {
       if (!this.ball.show) {
-        let data = [item, 1]
-        this.$store.commit('addCarPanelData', data)
+        var usercode =localStorage.getItem('usercode');
+        if(!usercode)
+        {
+          this.$router.push('loginForm');
+        }
+        //let data = [item, 1]
+        //console.log(usercode);
+        //this.$store.commit('addCarPanelData', data)
+        try {
+            const dataParams = {
+              UserCode:usercode,
+              Data: { 
+                  Id:item, 
+              },
+            };
+            const response = await this.$axios.post('/api/UserShoppingCart/Add', dataParams);
+            if (response.data && response.data.Sign) {
+              console.log('添加成功',response);
+              this.$router.push('cart'); 
+            } else {
+              console.log('添加失败：', response.data.message);
+            }
+          } catch (error) {
+            console.log('请求出错：', error);
+          }
       }
     },
     tableData(index) {

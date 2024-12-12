@@ -5,7 +5,7 @@
                 <div class="account-sidebar">
                     <div class="avatar gray-box clear">
                         <div class="js-account-sidebar-info">
-                            <img src="../assets/img/user-avatar.png">
+                            <img src="../assets/img/user.png">
                         </div>
                         <div class="box-inner">
                             <ul class="account-nav">

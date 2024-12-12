@@ -6,11 +6,13 @@ import router from './router'
 import axios from 'axios/index';
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
-
 import store from './store'
 
-import ElementUI from 'element-ui';
-import 'element-ui/lib/theme-chalk/index.css';
+axios.defaults.baseURL='http://localhost:33889';
+axios.defaults.headers.common['Content-Type']='application/json';
+
+Vue.prototype.$axios =axios;
+
 console.log(store)
 
 Vue.use(ElementUI);

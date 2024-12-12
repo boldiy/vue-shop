@@ -4,40 +4,6 @@
 			<div class="gray-box">
 				<div class="title columns-title pre-title">
 					<h2>我的订单</h2>
-					<div class="gray-btn-menu sort-status-menu">
-						<span class="label"><i class="arrow"></i> 全部状态 </span>
-						<ul class="menu-list">
-							<li class="selected">
-								<a href="javascript:;">全部状态</a>
-							</li>
-							<li class="">
-								<a href="javascript:;">未完成</a>
-							</li>
-							<li class="">
-								<a href="javascript:;">已完成</a>
-							</li>
-							<li class="">
-								<a href="javascript:;">已关闭</a>
-							</li>
-						</ul>
-					</div>
-					<div class="gray-btn-menu sort-time-menu -gray-btn-menu-on">
-						<span class="label"><i class="arrow"></i> 最近三个月 </span>
-						<ul class="menu-list">
-							<li class="selected">
-								<a href="javascript:;">最近三个月</a>
-							</li>
-							<li class="">
-								<a href="javascript:;">今年内</a>
-							</li>
-							<li class="">
-								<a href="javascript:;">2016年</a>
-							</li>
-							<li class="">
-								<a href="javascript:;">2015年</a>
-							</li>
-						</ul>
-					</div>
 				</div>
 				<div class="js-list-inner">
 					<div class="box-inner order-cart order-list-cart clear" v-for="order,index in orderData">

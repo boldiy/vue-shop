@@ -25,11 +25,13 @@
   </div>
 </template>
 
-<script>
-import axios from 'axios';
-import md5 from 'md5'
+<script> 
+import md5 from 'md5'//加密
 
 export default {
+  mounted() {
+    localStorage.clear();
+  },
   data() {
     return {
       loginForm: {
@@ -59,23 +61,26 @@ export default {
              ...this.loginForm,
               password: encryptedPassword
             };
+            let params1 = '';
+            let paramsArr= [];            
+            paramsArr.push(`UserCode=\"${this.loginForm.username}\"`);
+            paramsArr.push(`Password=\"${encryptedPassword}\"`);
+            params1 = paramsArr.join(' AND ');
+            const params ={
+              entityQuery:{
+              PageSize:1,
+              StartIndex:0,
+              Criteria:params1,           
+            }};
 
-            localStorage.setItem('userinfo', JSON.stringify(this.loginForm));
-
-            console.log(localStorage.getItem('userinfo'))
-
-
-            const response = await axios.post('/api/login', requestData);
-            if (response.data.success) {
-              console.log('登录成功');
-              // 这里可以进行登录成功后的页面跳转等操作，比如使用router.push('/home')，前提是配置了路由
-
-              localStorage.setItem('userinfo', this.loginForm);
-
-             console.log(localStorage.getItem('userinfo'))
-            } else {
-              console.log('登录失败：', response.data.message);
-            }
+            //调用登录接口
+            this.$axios.get("/api/UserInfo/QueryEntityList", {params}).then(response => { 
+              if(response&&response.data&&response.data.Data.Page) { 
+                //console.log('cg', localStorage.getItem('usercode')); 
+                localStorage.setItem('usercode', response.data.Data.Page[0].UserCode);//保存用户信息                
+                this.$router.push('phone');//跳转到首页 
+              }
+            });            
           } catch (error) {
             console.log('请求出错：', error);
           }
@@ -86,7 +91,7 @@ export default {
       });
     },
     register() {
-      this.$router.push('register')
+      this.$router.push('register');//跳转注册页面
     }
   }
 };
