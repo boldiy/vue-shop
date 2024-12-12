@@ -9,7 +9,7 @@
                         </div>
                         <div class="box-inner">
                             <ul class="account-nav">
-                                <router-link :to="{ name: 'Account' }" exact tag="li" activeClass="current">
+                                <router-link :to="{ name: 'Order' }" exact tag="li" activeClass="current">
                                     <a>我的订单</a>
                                 </router-link>
                                 <router-link :to="{ name: 'Address' }" tag="li" activeClass="current">

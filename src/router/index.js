@@ -71,8 +71,8 @@ export default new Router({
       component: Account,
       children: [
         {
-          path: '',
-          name: 'Account',
+          path: '/order',
+          name: 'Order',
           component: Order
         },
         {
